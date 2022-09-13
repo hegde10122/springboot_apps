@@ -14,9 +14,9 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
+                .formLogin() // all browser requests coming from forms -- login forms,contact forms etc
                 .and()
-                .httpBasic();
+                .httpBasic(); // all backend API and Postman requests
     }
 
 }
