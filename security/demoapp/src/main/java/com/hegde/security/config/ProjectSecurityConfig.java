@@ -45,7 +45,6 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").authenticated()
                 .antMatchers("/user").hasRole("user")
                 .antMatchers("/admin").hasRole("admin")
-                .antMatchers(method)
                 .and()
                 .formLogin() // all browser requests coming from forms -- login forms,contact forms etc
                 .and()
