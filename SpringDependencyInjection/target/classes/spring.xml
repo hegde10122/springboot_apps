@@ -7,15 +7,20 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--asking the spring to search this package for all beans using the Component annotation-->
     <context:component-scan base-package="demo3"/>
 
     <bean id="customer" class="demo3.Customer">
+
+        <!--object injection using xml using the ref keyword-->
         <property name="address" ref="address">
         </property>
+        <!--constructor injection using xml OR constructor injection to inject property-->
         <constructor-arg value="3 bhavan road"/>
     </bean>
     <bean id="car" class="demo3.Car"/>
     <bean id="address" class="demo3.Address">
+        <!--property injection using xml OR setter injection to inject property-->
         <property name="street" value="10 beetroot road"/>
     </bean>
 
