@@ -1,8 +1,20 @@
 package demo3;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Address {
+
     private String street;
+
     private int phoneNumber;
+
+    public Address(){
+
+    }
+
 
     public Address(String street, int number) {
         this.street = street;
@@ -15,6 +27,11 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public boolean bill(){
+        System.out.println("I paid Rs.500");
+        return false;
     }
 
     public int getPhoneNumber() {
