@@ -16,7 +16,10 @@ public class BeanConfig {
 
     @Bean
     public Laptop getLaptop(){
-       return new MacBook();
+
+        MacBook macBook = new MacBook();
+        System.out.println(macBook.toString());
+       return macBook;
     }
 
 }
