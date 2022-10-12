@@ -1,6 +1,6 @@
 package com.hegde.springbootlearning.batch;
 
-import com.hegde.springbootlearning.model.User;
+import com.hegde.springbootlearning.model.Employee;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Processor implements ItemProcessor<User,User> {
+public class Processor implements ItemProcessor<Employee, Employee> {
 
 private static final Map<String,String> DEPT_NAMES = new HashMap<>();
 
@@ -19,11 +19,12 @@ public Processor(){
 }
 
     @Override
-    public User process(User user) throws Exception {
+    public Employee process(Employee employee) throws Exception {
 
-    String deptCode = user.getDept();
+    String deptCode = employee.getDept();
     String dept = DEPT_NAMES.get(deptCode);
-    user.setDept(dept);
-        return user;
+    employee.setDept(dept);
+        System.out.println(String.format("Converted from [%s] to [%s]",deptCode,dept));
+        return employee;
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class Employee {
 
     @Id
     private Integer id;
@@ -12,14 +12,14 @@ public class User {
     private String dept;
     private Integer salary;
 
-    public User(Integer id, String name, String dept, Integer salary) {
+    public Employee(Integer id, String name, String dept, Integer salary) {
         this.id = id;
         this.name = name;
         this.dept = dept;
         this.salary = salary;
     }
 
-    public User() {
+    public Employee() {
     }
 
     public Integer getId() {
