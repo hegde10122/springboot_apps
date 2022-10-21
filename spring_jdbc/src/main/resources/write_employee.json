@@ -1,0 +1,17 @@
+{
+  "id" : 1263,
+  "name" : "Ganesh R Hegde",
+  "age" : 19,
+  "salary" : 20000000,
+  "designation" : "Programmer",
+  "address" : {
+    "street" : "Stub Park",
+    "city" : "Thane",
+    "zipcode" : 505838
+  },
+  "phoneNumbers" : [ 6543218, 2122333 ],
+  "personalInformation" : {
+    "gender" : "Male",
+    "maritalstatus" : "Married"
+  }
+}
