@@ -1,0 +1,17 @@
+
+{
+  "geofence_type": "state",
+  "wkid" : 3857,
+  "wktext" : "",
+
+
+"table_columns":
+{
+  "OBJECTID" :"LONG:NOTNULL",
+  "SHAPE" :"POINT:NOTNULL",
+  "SITE_NAME":"STRING:NULL",
+  "SITE_ADDRESS":"STRING:NULL"
+
+}
+
+}

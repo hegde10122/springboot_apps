@@ -15,7 +15,9 @@ CREATE DATABASE geometry_objects
 COMMENT ON DATABASE geometry_objects
     IS 'this db is used for postgis geometry objects POC';
  
- 
+ CREATE EXTENSION postgis;
+
+
  CREATE TABLE animals(gid BIGSERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL,points GEOMETRY(POINT,4326) NOT NULL);
  
  INSERT INTO animals(name,points) VALUES('GIS_DEPT6','SRID=4326;POINT(19.52 73.11)');
@@ -25,7 +27,7 @@ COMMENT ON DATABASE geometry_objects
  SELECT ST_AsText(points)
   FROM animals
   WHERE name LIKE '%GIS_DEPT%';
-
-
  
- 
+ CREATE INDEX idx_geometry 
+ON animals(points);
+
