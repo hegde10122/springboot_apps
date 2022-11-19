@@ -18,8 +18,8 @@ public class CSVController {
     @Autowired
     CSVService csvService; //service class that interacts with repository class to save data to the DB
 
-    private boolean isMetaDataCorrect;
-    private boolean isFileDataCorrect;
+    @Autowired
+    CSVHelper csvHelper;
 
     @PostMapping(value = "/uploadcsv",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody String uploadCSV( @RequestPart("file") MultipartFile file,@RequestPart String tableInfo) {//,
@@ -27,54 +27,63 @@ public class CSVController {
         String message;
 
         //metadata information about tables incorrect ---- throw the error message and stop
-        isMetaDataCorrect = CSVHelper.isMetaDataCorrect(tableInfo);
+        boolean isMetaDataCorrect = csvHelper.isMetaDataCorrect(tableInfo);
 
         if(!isMetaDataCorrect){
             logger.error("CSV file table metadata information incorrect");
             return "CSV file table metadata information incorrect";
+
+           // throw new Exception("CSV file table metadata information not found");
             /*throw new InvalidBusinessException("CSV file table metadata information not found",
                     ResponseStatusEnum.INVALID_DATA);*/
         }
         else {
 
-            //csv data issues ----- throw the error message and stop
-            isFileDataCorrect = CSVHelper.isFileDataValid(file,tableInfo);
+            if(csvHelper.hasCSVFormat(file)){
+                try {
 
-            if(!isFileDataCorrect){
-                logger.error("CSV file data incorrect "+file.getOriginalFilename());
-                return "CSV file data incorrect "+file.getOriginalFilename();
+                    //check for validity of each row in the csv
+                    boolean isFileDataCorrect = csvHelper.isFileDataValid(file, tableInfo);
 
-            /*throw new InvalidBusinessException("CSV file data incorrect",
-                    ResponseStatusEnum.INVALID_DATA);*/
-            } else {
-                if (CSVHelper.hasCSVFormat(file)) {
-                    try {
+                    if(!isFileDataCorrect){
+                        logger.error("CSV file data incorrect "+file.getOriginalFilename());
+                        return "CSV file data incorrect "+file.getOriginalFilename();
+
+                    /*throw new InvalidBusinessException("CSV file data incorrect",
+                         ResponseStatusEnum.INVALID_DATA);*/
+                    }
+                    else {
+
                         // csvService.save(file,);
 
-                        message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                        //  message = "Uploaded the file successfully: " + file.getOriginalFilename();
 
-                /*responseObj = new ResponseObj(true,
-                        message, message,
-                        ResponseStatusEnum.FILE_UPLOADED);*/
+                     /*responseObj = new ResponseObj(true,
+                       message, message,
+                           ResponseStatusEnum.FILE_UPLOADED);*/
 
-                        return message;
+                        //  return message;
+                    }
 
-                    } catch (Exception ex) {
-                        message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-                        logger.error(message);
-               /* throw new InvalidBusinessException(ex.getMessage() + " File upload Error. "+message,
+
+                } catch (Exception ex) {
+                    message = "Could not upload the file: " + file.getOriginalFilename() + " !!";
+                    logger.error(message);
+                /* throw new InvalidBusinessException(ex.getMessage() + " File upload Error. "+message,
                         ResponseStatusEnum.FILE_NOT_FOUND);*/
 
-                    }
                 }
-
+            }else {
                 message = "Please upload a csv file!";
                 logger.error(message);
-      /*  throw new InvalidBusinessException(HttpStatus.BAD_REQUEST + " File upload issues. "+message,
-                ResponseStatusEnum.FILE_NOT_FOUND);*/
+            /*  throw new InvalidBusinessException(HttpStatus.BAD_REQUEST + " File upload issues. "+message,
+          ResponseStatusEnum.FILE_NOT_FOUND);*/
 
                 return message;
             }
+
             }
+
+        return "";
     }
 }

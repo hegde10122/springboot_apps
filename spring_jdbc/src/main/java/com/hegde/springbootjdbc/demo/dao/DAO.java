@@ -10,6 +10,8 @@ public interface DAO<T> {
 
     Optional<T> get(int id);
 
-    void update(T t,int id);
+    void addRows(T t,Object o);
+
+    void updateRows(T t, Object o);
 
 }
